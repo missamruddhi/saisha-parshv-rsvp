@@ -239,15 +239,10 @@
             <div><h2>Parent details</h2><small>Who will be coming along with the kids?</small></div>
           </div>
           <div class="grid">
-            <div class="field" data-field="motherName">
-              <label for="motherName">Mother's name <span class="req">*</span></label>
-              <input class="input" id="motherName" name="motherName" autocomplete="off" placeholder="e.g. Priya Shah" maxlength="80">
-              <div class="err">Please enter the mother's name</div>
-            </div>
-            <div class="field" data-field="fatherName">
-              <label for="fatherName">Father's name <span class="req">*</span></label>
-              <input class="input" id="fatherName" name="fatherName" autocomplete="off" placeholder="e.g. Rohan Shah" maxlength="80">
-              <div class="err">Please enter the father's name</div>
+            <div class="field full" data-field="parentNames">
+              <label for="parentNames">Parents' names (mother &amp; father) <span class="req">*</span></label>
+              <input class="input" id="parentNames" name="parentNames" autocomplete="off" placeholder="e.g. Priya &amp; Rohan Shah" maxlength="120">
+              <div class="err">Please enter the parents' names</div>
             </div>
             <div class="field full" data-field="mobile">
               <label for="mobile">Parent's mobile number (WhatsApp) <span class="req">*</span></label>
@@ -417,10 +412,9 @@
 
       function collect() {
         var bad = [];
-        var mother = $('motherName').value.trim(), father = $('fatherName').value.trim(), mobile = cleanMobile($('mobile').value);
+        var parents = $('parentNames').value.trim(), mobile = cleanMobile($('mobile').value);
         var f;
-        f = form.querySelector('[data-field="motherName"]'); setInvalid(f, mother.length < 2); if (mother.length < 2) bad.push(f);
-        f = form.querySelector('[data-field="fatherName"]'); setInvalid(f, father.length < 2); if (father.length < 2) bad.push(f);
+        f = form.querySelector('[data-field="parentNames"]'); setInvalid(f, parents.length < 2); if (parents.length < 2) bad.push(f);
         f = form.querySelector('[data-field="mobile"]'); var mOk = /^[6-9]\d{9}$/.test(mobile); setInvalid(f, !mOk); if (!mOk) bad.push(f);
 
         var children = [];
@@ -440,7 +434,7 @@
 
         return {
           bad: bad,
-          payload: { motherName: mother, fatherName: father, mobile: mobile, nanny: nannyEl ? nannyEl.value : '', acknowledged: ack, children: children }
+          payload: { parentNames: parents, mobile: mobile, nanny: nannyEl ? nannyEl.value : '', acknowledged: ack, children: children }
         };
       }
 
